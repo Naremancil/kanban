@@ -8,22 +8,23 @@ body{
     width: 100vw;
     height: 100vh;
     /* background-color: red; */
+    transition: 0.5s ease-out;
+    
 }
 
 header{
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
+    justify-content: space-between;
+    padding-inline: 4em;
     /* background-color: green; */
+    width: 100%;
 }
 
 #cabecalho{
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    width: 50vw;
-    /* background-color: blue; */
+    gap: 2em;
 }
 
 nav{
@@ -31,7 +32,7 @@ nav{
     /* background-color: yellow; */
 }
 
-nav a{
+nav label{
     margin-inline: 2em;
 }
 
@@ -57,6 +58,11 @@ nav a{
     cursor: pointer;
     transition: transform 0.4s ease; /* Animação suave */
     position: relative;
+}
+
+.dark-mode{
+    background-color: #3e3e42;
+    color: white;''
 }
 
 .background-page input[type="checkbox"]:checked + .slide{
