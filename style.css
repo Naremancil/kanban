@@ -5,12 +5,77 @@
 }
 
 body{
-    width: 100vw;
-    height: 100vh;
+    /* width: 100%; */
+    /* height: 100vh; */
     /* background-color: red; */
     transition: 0.5s ease-out;
-    
 }
+
+#logout{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    /* background-color: red; */
+}
+
+#logout.off{
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+    /* background-color: green; */
+}
+
+#login.off{
+    opacity: 0;
+    display: none;
+    pointer-events: none;
+    /* background-color: green; */
+}
+
+
+#form-login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5em;
+    height: 12vh;
+    width: 20vw;
+    /* background-color: purple; */
+}
+
+#form-login input{
+    font-size: bold;
+    text-align: center;
+    height: 4em;
+    width: 16em;
+}
+
+#form-login input:focus{
+    outline: none;
+    box-shadow: 0 0 6px 2px aquamarine; 
+    border: 1px solid rgb(29, 204, 146); 
+    transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
+}
+
+.botao-pagina{
+    border: none;
+    border-radius: 6px;
+    padding: 0.5em;
+    width: 6em;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.botao-pagina:hover{
+    color: white;
+    background-color: #3e3e42;
+}
+
+
+
 
 header{
     display: flex;
@@ -39,6 +104,7 @@ nav label{
 .background-page{
     display: inline-flex;
     align-items: center;
+    height: 1.4em;
     width: 2.8em;
     background-color: gray;
     border-radius: 16px;
@@ -62,7 +128,7 @@ nav label{
 
 .dark-mode{
     background-color: #3e3e42;
-    color: white;''
+    color: white;
 }
 
 .background-page input[type="checkbox"]:checked + .slide{
