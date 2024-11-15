@@ -56,7 +56,7 @@ body{
 #form-login input:focus{
     outline: none;
     box-shadow: 0 0 6px 2px aquamarine; 
-    border: 1px solid rgb(29, 204, 146); 
+    border: 1px solid #1dcc92; 
     transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
@@ -73,9 +73,6 @@ body{
     color: white;
     background-color: #3e3e42;
 }
-
-
-
 
 header{
     display: flex;
@@ -137,4 +134,45 @@ nav label{
 
 .slide{
     background-color: silver;
+}
+
+main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 95vh;
+    /* background-color: red; */
+}
+
+#kanban{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    width: 90vw;
+    height: 80vh;
+    overflow-y: auto;
+}
+
+.colunaKanban{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    margin-inline: 2em;
+    padding: 1em;
+    min-width: 15vw;
+    height: 60vh;
+}
+
+.tituloColuna{
+    position: relative;
+    top: 5;
+    margin-bottom: 1.5em;
+}
+
+
+.tarefa{
+    font-size: 1.2em;
+    margin-block-end: 1.5em;
 }
