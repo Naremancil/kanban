@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="./script.js" defer></script>
+
+    <!-- Font Oswald -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noticia+Text:ital,wght@0,400;0,700;1,400;1,700&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/761cd05781.js" crossorigin="anonymous"></script>
+
     <title>Nosso kanbanzin</title>
 </head>
 <body>
     <div id="logout">
-        <div id="logout-container">
+        <i class="fa-solid fa-face-laugh"></i>
+        <div id="login-container">
             <label for="login-email" id="form-login">
                 <input type="text" placeholder="Adentre seu email">
-                <button id="entrar" class="botao-pagina">Login</button>
+                <button id="entrar" class="botao-pagina" onclick="login()">Login</button>
             </label>
         </div>
     </div>
@@ -23,24 +31,24 @@
                 <h1>Meu kanbanzin</h1>
             </div>
             <nav>
-                <button id="sair" class="botao-pagina">Logout</button>
+                <button id="sair" class="botao-pagina">Logout <i id="sadFace" class="fa-solid fa-face-sad-tear off"></i></button>
                 <label class="background-page" id="dark-mode">
                     <input type="checkbox" id="check-dark-mode" />
                     <span class="slide"></span>
                 </label>
+                
             </nav>
         </header>
         <main>
+            <div id="configuracao">
+                <label for="boards">Quadros</label>
+                <select name="boards" id="boardSelect" >
+                    <option value="" disabled selected></option>
+                </select>
+                <button id="criarColuna" class="botao-pagina">criar Coluna</button>
+            </div>
             <div id="kanban">
-                <div class="colunaKanban">
-                    <h2 class="tituloColuna">titulo do quadro</h2>
-                    <div class="tarefasKanban">
-                        <p class="tarefa">tarefa 1</p>
-                        <p class="tarefa">tarefa 2</p>
-                        <p class="tarefa">tarefa 3</p>
-                    </div>
-                </div>
-
+                
             </div>
         </main>
     </div>

@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'oswald', sans-serif;
 }
 
 body{
@@ -9,16 +10,32 @@ body{
     /* height: 100vh; */
     /* background-color: red; */
     transition: 0.5s ease-out;
+    background-color: rgba(235,225,216,255);
+}
+
+i.off{
+    display: none;
 }
 
 #logout{
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     height: 100vh;
     /* background-color: red; */
 }
+
+#login-container{
+    margin-top: 10em;
+}
+
+#logout i{
+    font-size: 150px;
+    color: #fec36f;
+}
+
 
 #logout.off{
     opacity: 0;
@@ -47,6 +64,8 @@ body{
 }
 
 #form-login input{
+    font-weight: 800;
+    border-radius: 10px;
     font-size: bold;
     text-align: center;
     height: 4em;
@@ -56,17 +75,34 @@ body{
 #form-login input:focus{
     outline: none;
     box-shadow: 0 0 6px 2px aquamarine; 
-    border: 1px solid #1dcc92; 
+    border: 1px solid #1dcc92;
     transition: box-shadow 0.3s ease-in-out, border 0.3s ease-in-out;
 }
 
+#criarColuna{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 7vw;
+    font-weight: 900;
+    background-color: #fcd50a;
+}
+
+#criarColuna:hover{
+    color: black;
+    background-color: #8f7907;
+}
+
 .botao-pagina{
+    font-weight: 800;
     border: none;
     border-radius: 6px;
     padding: 0.5em;
-    width: 6em;
+    width: 6vw;
     cursor: pointer;
     transition: all 0.5s;
+    background-color: rgba(127,181,213,255);
+    box-shadow: 2.5px 2.5px #000000;
 }
 
 .botao-pagina:hover{
@@ -81,6 +117,7 @@ header{
     padding-inline: 4em;
     /* background-color: green; */
     width: 100%;
+    height: 10vh;
 }
 
 #cabecalho{
@@ -138,20 +175,53 @@ nav label{
 
 main{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 1em;
     width: 100%;
     height: 95vh;
     /* background-color: red; */
 }
 
+#configuracao {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding-inline: 2em;
+    width: 90vw;
+    /* background-color: green; */
+    margin-top: -2em;
+}
+
+#configuracao select {
+    border: none;
+    border-radius: 10px;
+    padding: 0.4em;
+    min-width: 10vw;
+    cursor: pointer;
+}
+
+
 #kanban{
     display: flex;
     align-items: center;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 90vw;
-    height: 80vh;
+    height: 75vh;
     overflow-y: auto;
+}
+
+#kanban::-webkit-scrollbar{
+    width: 8px;
+    border: 0.2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    background-color: rgba(107,31,51,255);
+}
+
+#kanban::-webkit-scrollbar-thumb{
+    background-color: rgba(148,209,172,255);
+    border-radius: 12px;
 }
 
 .colunaKanban{
@@ -163,6 +233,41 @@ main{
     padding: 1em;
     min-width: 15vw;
     height: 60vh;
+    overflow-x: auto;
+    box-shadow: 3px 3px 4px gray;
+    border-radius: 12px;
+}
+
+.colunaKanban.dark-mode{
+    box-shadow: 3px 2px 4px black;
+
+}
+
+.tarefasKanban{
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1em;
+    width: 90%;
+    height: 70%;
+    margin-bottom: 1em;
+    overflow: auto;
+}
+
+.tarefasKanban::-webkit-scrollbar{
+    width: 8px;
+    border: 0.2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-color: rgba(107,31,51,255);
+}
+
+.tarefasKanban::-webkit-scrollbar-thumb{
+    
+    background-color: rgba(148,209,172,255);
+    border-radius: 10px;
 }
 
 .tituloColuna{
@@ -170,7 +275,6 @@ main{
     top: 5;
     margin-bottom: 1.5em;
 }
-
 
 .tarefa{
     font-size: 1.2em;
