@@ -18,6 +18,7 @@ i.off{
 }
 
 #logout{
+    position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: center;
@@ -49,18 +50,6 @@ i.off{
     display: none;
     pointer-events: none;
     /* background-color: green; */
-}
-
-
-#form-login{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5em;
-    height: 12vh;
-    width: 20vw;
-    /* background-color: purple; */
 }
 
 #form-login input{
@@ -173,6 +162,10 @@ nav label{
     background-color: silver;
 }
 
+.quadro-tarefas.off{
+    display: none;
+}
+
 main{
     display: flex;
     flex-direction: column;
@@ -202,6 +195,29 @@ main{
     cursor: pointer;
 }
 
+#login-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    height: 12vh;
+    width: 20vw;
+    /* background-color: purple; */
+}
+
+#login-form input{
+    text-align: center;
+    width: 15vw;
+}
+
+#login-errado .off{
+    display: none;
+}
+
+p.off{
+    display: none;
+}
 
 #kanban{
     display: flex;
@@ -241,6 +257,11 @@ main{
 .colunaKanban.dark-mode{
     box-shadow: 3px 2px 4px black;
 
+}
+
+.quadro-tarefas{
+    display: flex;
+    overflow-x: auto;
 }
 
 .tarefasKanban{

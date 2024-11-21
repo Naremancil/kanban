@@ -1,32 +1,24 @@
 // Autenticação por Email: O sistema deve permitir que o usuário faça login através do email informado. O acesso será autenticado por meio de um token de sessão.
 
-// Seleção de Quadro: O usuário deverá ser capaz de selecionar um quadro específico a partir dos quadros disponíveis no sistema.
-
-
 // Criação, Atualização e Exclusão de Tarefas em uma Coluna Específica: O usuário deverá poder criar novas tarefas, atualizar tarefas existentes ou excluir tarefas em qualquer coluna de seu quadro.
 
 
+//getColunas()
+getQuadros()
 
-getColunas()
-const colunas = []
-localStorage.setItem("colunasId", '')
-if(localStorage.getItem("colunasId").length != 0) colunas.push(JSON.parse(localStorage.getItem("colunasId")))
-
+// memória do dark-mode
+if(localStorage.getItem('isDarkMode') == 1){
+    document.querySelector("body").classList.toggle("dark-mode")
+    let dark_coluna = document.querySelectorAll(".colunaKanban")
+    dark_coluna.forEach(coluna => {
+        coluna.classList.toggle("dark-mode")
+    })
+}
 
 // logout
-document.querySelector("#sair").addEventListener('click', () => {
-    document.querySelector('#login').classList.toggle("off")
-    document.querySelector('#logout').classList.toggle("off")
-})
-
-document.querySelector("#entrar").addEventListener('click', () => {
-    document.querySelector('#login').classList.toggle("off")
-    document.querySelector('#logout').classList.toggle("off")
-})
 //
 
 // DarkMode
-
 document.querySelector('#dark-mode').addEventListener('change', () => {
     // Acionando o dark-mode
     document.querySelector("body").classList.toggle("dark-mode")
@@ -56,23 +48,30 @@ botaoSair.addEventListener("mouseout", () => {
 })
 
 // API pra pegar as colunas
-async function getColunas() {
-    try{
-        // retorno do quadro escolhido, 33 no caso
-        const response_colunas = await fetch("https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/ColumnByBoardId?BoardId=33")
 
-        // transformando a resposta em Json 
+async function getQuadros() {
+    try{
+        const response = await fetch("https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/Boards")
+        const data = await response.json()
+        data.forEach(quadro => {
+            var option = document.createElement("option")
+            option.innerText = quadro.Name
+            option.value = quadro.Id
+            option.classList.toggle("opcao")
+            document.querySelector('#boardSelect').appendChild(option)
+        })
+
+    }catch(error){
+        console.log("nao consegui pegar os quadros\n", error)
+    }
+}
+
+async function getColunas(id) {
+    try{
+        const response_colunas = await fetch(`https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/ColumnByBoardId?BoardId=${id}`)
         const data_colunas = await response_colunas.json()
         
-       
-       // Renderizar Colunas
         data_colunas.forEach(coluna => {
-            
-            // Salvando as informações pra um próximo render
-            colunas.push(coluna.Id)
-            localStorage.setItem("colunasId", colunas)
-
-            // Container principal
             var divColuna = document.createElement("div")
             divColuna.classList.toggle("colunaKanban")
 
@@ -84,7 +83,6 @@ async function getColunas() {
             // Container de tarefas
             var divTarefas = document.createElement("div")
             divTarefas.classList.toggle("tarefasKanban")
-            divTarefas.id = `${coluna.Id}`
 
             // Botão de criação
             var botao = document.createElement("button")
@@ -95,25 +93,19 @@ async function getColunas() {
             divColuna.appendChild(h2Titulo)
             divColuna.appendChild(divTarefas)
             divColuna.appendChild(botao)
-
+            
+            
+            getTarefas(coluna.Id, divColuna)
             // Renderizando toda a estrutura
-            document.querySelector("#kanban").appendChild(divColuna)
+            
+            document.getElementById(`${id}`).appendChild(divColuna)
         })
-
     }catch(error){
-        console.log("erro ao trazer colunas", error)
-    } finally {
-        if(localStorage.getItem('isDarkMode') == 1){
-            document.querySelector("body").classList.toggle("dark-mode")
-            let dark_coluna = document.querySelectorAll(".colunaKanban")
-            dark_coluna.forEach(coluna => {
-                coluna.classList.toggle("dark-mode")
-            })
-        }
+        console.log("erro ao trazer colunas\n", error)
     }
 }
 
-async function getTarefas(id){
+async function getTarefas(id, coluna){
     try{
         // retorno de todas as tarefas
         const response_tasks = await fetch(`https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/TasksByColumnId?ColumnId=${id}`)
@@ -129,17 +121,98 @@ async function getTarefas(id){
             pTarefa.innerText = tarefa.Title
 
             // Colocando dentro da coluna
-            var coluna = document.getElementById(`${id}`).appendChild(pTarefa)
-
+            coluna.childNodes[1].appendChild(pTarefa)
         })
-        // console.log(data_tasks)
     }catch(error){
-        console.log("erro ao trazer tarefas", error)
+        console.log("erro ao trazer tarefas\n", error)
     }
 }
 
-function login() {
-    colunas.forEach(id => {
-        getTarefas(id)
-    })
+// API pra postar quadros[
+
+async function postQuadros(){
+    try{
+        const post = new XMLHttpRequest()
+        post.open('POST', 'https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/Board', true)
+
+        post.send({
+        "Name": `${document.querySelector('novoQuadroNome').value}`,
+        "Description": `${document.querySelector('novoQuadroDescricao').value}`,
+        "HexaBackgroundCoor": `${document.querySelector('novoQuadroCor').value}`,
+        "IsActive": true,
+        "CreatedBy": 7,
+        })
+        console.log(post.status)
+
+    }catch(error){
+        console.log("erro ao postar quadro\n", error)
+    }
 }
+
+async function postColunas(){
+
+}
+
+async function postTarefas(){
+
+}
+
+const teste = document.querySelector("#quadro-tarefas")
+
+// API
+document.querySelector("#boardSelect").addEventListener("change", e => {
+    if(document.querySelector("#quadro-tarefas").childNodes != null){
+        teste.innerHTML = ''
+    }
+    document.querySelector("#quadro-tarefas").id = e.target.value
+    getColunas(e.target.value)
+})
+
+async function login(email) {
+    try{
+        const response = await fetch(`https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/GetPersonByEmail?Email=${email.trim()}`)
+        //console.log(response.status)
+        if(response.status == 200) {
+            document.querySelector("#logout").classList.toggle("off")
+            document.querySelector("#login").classList.toggle("off")
+        } else if(response.status == 422){
+            var random = Math.floor(Math.random() * 4)
+            console.log(random)
+            switch (random){
+                case 0:
+                    document.querySelector("i").classList.value = "fa-solid fa-face-sad-tear"
+                    break;
+                case 1:
+                    document.querySelector("i").classList.value = "fa-solid fa-face-sad-cry"
+                    break
+                case 2:
+                    document.querySelector("i").classList.value = "fa-solid fa-face-frown-open"
+                    break
+                case 3:
+                    document.querySelector("i").classList.value = "fa-solid fa-face-dizzy"
+                    break
+                default: document.querySelector("i").classList.value = "fa-solid fa-face-flushed"
+            }
+            document.querySelector("#login-errado").innerText = "Ops... não achei esse email"
+            if(document.querySelector("#login-errado").classList.value == "off"){
+                document.querySelector("#login-errado").classList.toggle("off")
+            }
+        } else if(response.status ==  504){
+            console.log("no internet friend")
+        }
+    }catch(error){
+        console.log("Nao encontrei essa pessoa XD\n", error)
+    }finally{
+        getQuadros()
+    }
+}
+
+document.querySelector("#sair").addEventListener("click", () => {
+    document.querySelector("#logout").classList.toggle("off")
+    document.querySelector("#login").classList.toggle("off")
+})
+
+document.querySelector("#entrar").addEventListener("click", e => {
+    e.preventDefault()
+    login(document.querySelector('#login-email').value)
+})

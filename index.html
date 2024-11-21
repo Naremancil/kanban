@@ -15,42 +15,64 @@
     <title>Nosso kanbanzin</title>
 </head>
 <body>
-    <div id="logout">
+    <div id="logout" class="off">
         <i class="fa-solid fa-face-laugh"></i>
         <div id="login-container">
-            <label for="login-email" id="form-login">
-                <input type="text" placeholder="Adentre seu email">
-                <button id="entrar" class="botao-pagina" onclick="login()">Login</button>
-            </label>
+            <form action="login-form" id="login-form">
+                <label for="login-email" id="form-login">Login:</label>
+                <input type="email" id="login-email" name="login-email" placeholder="Adentre seu email" required>
+                <button type="button" id="entrar" class="botao-pagina">Login</button>
+                <p id="login-errado" class="off"></p>
+            </form>
+            
         </div>
     </div>
-    <div id="login" class="off">
+
+
+
+    <div id="login">
         <header>
             <div id="cabecalho">
                 <img src="./#" alt="imagem do site">
                 <h1>Meu kanbanzin</h1>
             </div>
+
+
+
             <nav>
                 <button id="sair" class="botao-pagina">Logout <i id="sadFace" class="fa-solid fa-face-sad-tear off"></i></button>
                 <label class="background-page" id="dark-mode">
                     <input type="checkbox" id="check-dark-mode" />
                     <span class="slide"></span>
                 </label>
-                
             </nav>
         </header>
+
+
+
         <main>
+            <div>
+                <div id="novaColuna">
+                    
+                </div>
+                <div id="novaTarefa">
+
+                </div>
+            </div>
             <div id="configuracao">
                 <label for="boards">Quadros</label>
-                <select name="boards" id="boardSelect" >
+                <select name="boards" id="boardSelect">
                     <option value="" disabled selected></option>
                 </select>
                 <button id="criarColuna" class="botao-pagina">criar Coluna</button>
             </div>
             <div id="kanban">
-                
+                <div id="quadro-tarefas" class="quadro-tarefas"></div>
             </div>
         </main>
+
+
+
     </div>
     <!-- Pegar todos os quadros -->
     <!-- <button onclick="getQuadros()">CLIQUE-ME</button>
