@@ -98,30 +98,28 @@ async function getColunas(id) {
             getTarefas(coluna.Id, divColuna)
             // Renderizando toda a estrutura
             
-            document.getElementById(`${id}`).appendChild(divColuna)
+            document.querySelector(".quadro-tarefas").appendChild(divColuna)
         })
     }catch(error){
         console.log("erro ao trazer colunas\n", error)
     }
 }
 
-async function getTarefas(id, coluna){
+function getTarefas(id, coluna){
     try{
         // retorno de todas as tarefas
-        const response_tasks = await fetch(`https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/TasksByColumnId?ColumnId=${id}`)
-
-        // Transformando a promise em Json
-        const data_tasks = await response_tasks.json()
+        fetch(`https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/TasksByColumnId?ColumnId=${id}`)
+        .then(res => res.json())
+        .then((tasks) => {
+            tasks.forEach(tarefa => {
+                    // Criação do molde da tarefa
+                    var pTarefa = document.createElement("p")
+                    pTarefa.classList.toggle("tarefa")
+                    pTarefa.innerText = tarefa.Title
         
-        // pra cada tarefa recolhida, vou colocar dentro do seu respectivo quadro
-        data_tasks.forEach(tarefa => {
-            // Criação do molde da tarefa
-            var pTarefa = document.createElement("p")
-            pTarefa.classList.toggle("tarefa")
-            pTarefa.innerText = tarefa.Title
-
-            // Colocando dentro da coluna
-            coluna.childNodes[1].appendChild(pTarefa)
+                    // Colocando dentro da coluna
+                    coluna.childNodes[1].appendChild(pTarefa)
+                })
         })
     }catch(error){
         console.log("erro ao trazer tarefas\n", error)
@@ -157,14 +155,14 @@ async function postTarefas(){
 
 }
 
-const teste = document.querySelector("#quadro-tarefas")
+const teste = document.querySelector(".quadro-tarefas")
 
 // API
 document.querySelector("#boardSelect").addEventListener("change", e => {
-    if(document.querySelector("#quadro-tarefas").childNodes != null){
+    if(document.querySelector(".quadro-tarefas").childNodes != null){
         teste.innerHTML = ''
     }
-    document.querySelector("#quadro-tarefas").id = e.target.value
+    document.querySelector(".quadro-tarefas").id = e.target.value
     getColunas(e.target.value)
 })
 
