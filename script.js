@@ -57,7 +57,7 @@ async function getQuadros() {
             var option = document.createElement("option")
             option.innerText = quadro.Name
             option.value = quadro.Id
-            option.classList.toggle("opcao")
+            option.classList.toggle(quadro.HexaBackgroundCoor)
             document.querySelector('#boardSelect').appendChild(option)
         })
 
@@ -66,12 +66,14 @@ async function getQuadros() {
     }
 }
 
-async function getColunas(id) {
+async function getColunas(id, color) {
     try{
         const response_colunas = await fetch(`https://personal-ga2xwx9j.outsystemscloud.com/TaskBoard_CS/rest/TaskBoard/ColumnByBoardId?BoardId=${id}`)
         const data_colunas = await response_colunas.json()
-        
+        console.log(color)
         data_colunas.forEach(coluna => {
+            if(color != undefined) document.getElementById('kanban').style = `background-color: ${color}` 
+            
             var divColuna = document.createElement("div")
             divColuna.classList.toggle("colunaKanban")
 
@@ -155,15 +157,17 @@ async function postTarefas(){
 
 }
 
-const teste = document.querySelector(".quadro-tarefas")
+const quadro = document.querySelector(".quadro-tarefas")
 
 // API
 document.querySelector("#boardSelect").addEventListener("change", e => {
     if(document.querySelector(".quadro-tarefas").childNodes != null){
-        teste.innerHTML = ''
+        quadro.innerHTML = ''
+        document.getElementById('kanban').style = `background-color: none` 
     }
-    document.querySelector(".quadro-tarefas").id = e.target.value
-    getColunas(e.target.value)
+    //console.log(document.querySelector(`option[value=${e.target.value}]`))
+    // console.log(document.querySelector(`option[value="${e.target.value}"]`).classList.value)
+    getColunas(e.target.value, document.querySelector(`option[value="${e.target.value}"]`).classList.value)
 })
 
 async function login(email) {

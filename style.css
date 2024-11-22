@@ -173,7 +173,7 @@ main{
     justify-content: center;
     gap: 1em;
     width: 100%;
-    height: 95vh;
+    height: 100%;
     /* background-color: red; */
 }
 
@@ -224,20 +224,23 @@ p.off{
     align-items: center;
     /* border: 1px solid black; */
     width: 90vw;
-    height: 75vh;
+    height: 80vh;
     overflow-y: auto;
+
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
 }
 
-#kanban::-webkit-scrollbar{
-    width: 8px;
-    border: 0.2px solid rgba(0, 0, 0, 0.2);
+.quadro-tarefas::-webkit-scrollbar{
+    width: 4px;
+    height: 6px;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
     border-radius: 12px;
     background-color: rgba(107,31,51,255);
 }
 
-#kanban::-webkit-scrollbar-thumb{
+.quadro-tarefas::-webkit-scrollbar-thumb{
     background-color: rgba(148,209,172,255);
-    border-radius: 12px;
 }
 
 .colunaKanban{
@@ -252,16 +255,19 @@ p.off{
     overflow-x: auto;
     box-shadow: 3px 3px 4px gray;
     border-radius: 12px;
+    background-color: rgba(235,225,216,255);
 }
 
 .colunaKanban.dark-mode{
     box-shadow: 3px 2px 4px black;
-
+    background-color: #3e3e42;
 }
 
 .quadro-tarefas{
     display: flex;
+    align-items: center;
     overflow-x: auto;
+    height: 100%;
 }
 
 .tarefasKanban{
@@ -286,7 +292,6 @@ p.off{
 }
 
 .tarefasKanban::-webkit-scrollbar-thumb{
-    
     background-color: rgba(148,209,172,255);
     border-radius: 10px;
 }
